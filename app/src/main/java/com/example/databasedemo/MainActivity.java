@@ -18,15 +18,19 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             SQLiteDatabase sqLiteDatabase=this.openOrCreateDatabase("Users",MODE_PRIVATE,null);
-            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS users (name VARCHAR,age INT(3))");
+            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS newusers (id INTEGER PRIMARY KEY,name VARCHAR,age INT(3))");
 
-//        sqLiteDatabase.execSQL("INSERT INTO users (name,age) VALUES ('Khem',20)");
-//        sqLiteDatabase.execSQL("INSERT INTO users (name,age) VALUES ('Khedu',23)");
+//        sqLiteDatabase.execSQL("INSERT INTO newusers (name,age) VALUES ('Khem',20)");
+//        sqLiteDatabase.execSQL("INSERT INTO newusers (name,age) VALUES ('Khedu',23)");
+//            sqLiteDatabase.execSQL("INSERT INTO newusers (name,age) VALUES ('kalyan',12)");
 
-            Cursor c=sqLiteDatabase.rawQuery("SELECT * FROM users",null);
+            sqLiteDatabase.execSQL( "DELETE FROM newusers  WHERE id= 3");
+
+            Cursor c=sqLiteDatabase.rawQuery("SELECT * FROM newusers",null);
 
             int nameIndex=c.getColumnIndex("name");
             int ageIndex=c.getColumnIndex("age");
+            int idIndex=c.getColumnIndex("id");
 
             c.moveToFirst();
 
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 Log.i("name",c.getString(nameIndex));
                 Log.i("age",c.getString(ageIndex));
+                Log.i("id",c.getString(idIndex));
 
                 c.moveToNext();
             }
